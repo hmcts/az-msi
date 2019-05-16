@@ -1,0 +1,8 @@
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentityBinding
+metadata:
+ name: ccd-etl-reader-binding
+ namespace: ccd-etl
+spec:
+ AzureIdentity: ccd-etl-reader
+ Selector: ccd-etl-reader

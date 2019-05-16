@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azmsi-reader
+  namespace: ccd-etl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azmsi-reader
+  template:
+    metadata:
+      labels:
+        app: azmsi-reader
+        aadpodidbinding: ccd-etl-reader
+    spec:
+      containers:
+        - image: hmcts/azmsi:latest
+          name: azmsi-reader
+          env:
+            - name: MSI_CLIENT_ID
+              value: ce3466a9-9ea0-4e5f-a1b4-ca21650a84f4
+            - name: MSI_BLOB_OPERATION
+              value: read
+            - name: MSI_BLOB_ACCOUNT
+              value: ccdetlacc1
+            - name: MSI_BLOB_CONTAINER
+              value: bsc1
+            - name: MSI_BLOB_FILE
+              value: testblob1.txt
+            - name: MSI_BLOB_CONTENT
+              value: "Blob created by pod authenticated using managed identity."
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+          imagePullPolicy: Always

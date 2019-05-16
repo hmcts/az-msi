@@ -1,0 +1,11 @@
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentity
+metadata:
+ name: ccd-etl-reader
+ namespace: ccd-etl
+ annotations:
+  - aadpodidentity.k8s.io/Behavior: namespaced
+spec:
+ type: 0
+ ResourceID: "/subscriptions/a5453007-c32b-4336-9c79-3f643d817aea/resourcegroups/ccd-etl-v1/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ccd-etl-reader-test1"
+ ClientID: ce3466a9-9ea0-4e5f-a1b4-ca21650a84f4
